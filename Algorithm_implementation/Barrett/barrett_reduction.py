@@ -4,9 +4,10 @@ from gmpy2 import mpz
 class BarrettMul:
     def __init__(self, N, bit_width=None):
         self.N = mpz(N)
-        self.k = bit_width if bit_width else 2 * self.N.bit_length()  # 根据需要调整 k
-        self.R = mpz(1) << self.k
+        self.k = bit_width if bit_width else 2 * self.N.bit_length()
+        self.R = mpz(2) ** self.k
         self.mu = (self.R * self.R) // self.N
+
 
     def multiply(self, x, y):
         x = mpz(x)  # 在入口处转换，减少重复转换
@@ -27,7 +28,7 @@ class BarrettMul:
 
 # 使用示例
 if __name__ == "__main__":
-    N = 1000000007
+    N = 2**255 - 19
     bit_width = 64  # 可以修改这个值来测试不同的位宽性能
     x = 123456789
     y = 987654321
